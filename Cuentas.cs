@@ -675,6 +675,23 @@ namespace Horus
                                         Confidence = Convert.ToDouble(ReceiveOnMatrix[8]);
                                     }
 
+                                    if (ymin > 100 || xmin > 100 || ymax > 100 || xmax > 100) 
+                                    {
+                                        ymin = Convert.ToDouble(ReceiveOnMatrix[2].Replace(".", ","));
+                                        xmin = Convert.ToDouble(ReceiveOnMatrix[3].Replace(".", ","));
+                                        ymax = Convert.ToDouble(ReceiveOnMatrix[4].Replace(".", ","));
+                                        xmax = Convert.ToDouble(ReceiveOnMatrix[5].Replace(".", ","));
+                                        Confidence = Convert.ToDouble(ReceiveOnMatrix[8].Replace(".", ","));
+                                    }
+
+                                    if (ymin > 100 || xmin > 100 || ymax > 100 || xmax > 100) {
+                                        ymin = Convert.ToDouble(ReceiveOnMatrix[2].Replace(",", "."));
+                                        xmin = Convert.ToDouble(ReceiveOnMatrix[3].Replace(",", "."));
+                                        ymax = Convert.ToDouble(ReceiveOnMatrix[4].Replace(",", "."));
+                                        xmax = Convert.ToDouble(ReceiveOnMatrix[5].Replace(",", "."));
+                                        Confidence = Convert.ToDouble(ReceiveOnMatrix[8].Replace(",", "."));
+                                    }
+
                                     left = Convert.ToInt32(xmin * AreaWidth);
                                     right = Convert.ToInt32(xmax * AreaWidth);
                                     top = Convert.ToInt32(ymin * AreaHeight);
