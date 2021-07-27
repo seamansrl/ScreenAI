@@ -21,6 +21,11 @@ https://www.proyectohorus.com.ar/Documentacion/Funciones.json
 
 https://www.proyectohorus.com.ar
 
-# Sobre los creadores
+# Contactanos en:
+https://www.linkedin.com/company/35599193/admin/
 
+# Seguime en:
+https://www.linkedin.com/in/fernando-p-maniglia/
+
+# Conocenos más en:
 https://www.seamansrl.com.ar
