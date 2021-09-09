@@ -558,9 +558,9 @@ namespace Horus
             }
             catch 
             {
-                Stop();
+                Start();
 
-                MessageBox.Show(this, "Error al conectar con la fuente de video", "Atención", MessageBoxButtons.OK);
+                Application.DoEvents();
 
                 return;
             }
@@ -572,6 +572,7 @@ namespace Horus
         private async void Upload() {
             Bitmap FrameToPlugin = null;
             String ToJson = "{\"Data\":[";
+            String ToPipe = "";
 
             try {
                 if (Preview != null) {
@@ -699,32 +700,35 @@ namespace Horus
 
                                     Name = ReceiveOnMatrix[6];
 
-                                    if (selectedPlugin != null) {
-                                        Int32 Count = 0;
+                                    
+                                    Int32 Count = 0;
 
-                                        foreach (String Value in ReceiveOnMatrix) {
-                                            if (Count == 0)
-                                                ToJson = ToJson + "{\"code\":" + Value + ",";
-                                            if (Count == 1)
-                                                ToJson = ToJson + "\"value\":\"" + Value + "\",";
-                                            if (Count == 2)
-                                                ToJson = ToJson + "\"y1\":" + Value + ",";
-                                            if (Count == 3)
-                                                ToJson = ToJson + "\"x1\":" + Value + ",";
-                                            if (Count == 4)
-                                                ToJson = ToJson + "\"y2\":" + Value + ",";
-                                            if (Count == 5)
-                                                ToJson = ToJson + "\"x2\":" + Value + ",";
-                                            if (Count == 6)
-                                                ToJson = ToJson + "\"detected_id\":\"" + Value + "\",";
-                                            if (Count == 7)
-                                                ToJson = ToJson + "\"vector_id\":\"" + Value + "\",";
-                                            if (Count == 8)
-                                                ToJson = ToJson + "\"confidence\":" + Value + "},";
+                                    foreach (String Value in ReceiveOnMatrix) {
+                                        if (Count == 0)
+                                            ToJson = ToJson + "{\"code\":" + Value + ",";
+                                        if (Count == 1)
+                                            ToJson = ToJson + "\"value\":\"" + Value + "\",";
+                                        if (Count == 2)
+                                            ToJson = ToJson + "\"y1\":" + Value + ",";
+                                        if (Count == 3)
+                                            ToJson = ToJson + "\"x1\":" + Value + ",";
+                                        if (Count == 4)
+                                            ToJson = ToJson + "\"y2\":" + Value + ",";
+                                        if (Count == 5)
+                                            ToJson = ToJson + "\"x2\":" + Value + ",";
+                                        if (Count == 6)
+                                            ToJson = ToJson + "\"detected_id\":\"" + Value + "\",";
+                                        if (Count == 7)
+                                            ToJson = ToJson + "\"vector_id\":\"" + Value + "\",";
+                                        if (Count == 8)
+                                            ToJson = ToJson + "\"confidence\":" + Value + "},";
 
-                                            Count++;
-                                        }
+                                        Count++;
+
+                                        ToPipe = ToPipe + Value + "|";
                                     }
+
+                                    ToPipe = ToPipe + "\n";
                                 }
 
                                 if (Name != "-1" && Name != "FAIL")
@@ -761,8 +765,16 @@ namespace Horus
                     }
                 }
 
+                if (pIPEToolStripMenuItem.Checked) {
+                    Clipboard.SetText(ToPipe);
+                }
+
+                if (jSONToolStripMenuItem.Checked) {
+                    Clipboard.SetText(ToJson);
+                }
+
                 try {
-                    if (selectedPlugin.Instance != null) {
+                    if (selectedPlugin != null) {
                         selectedPlugin.Instance.Input = ToJson + "{\"code\":-1}]}";
 
                         if (FrameToPlugin != null)
@@ -1183,6 +1195,28 @@ namespace Horus
         private void CerrarToolStripMenuItem_Click(object sender, EventArgs e) {
             if (MessageBox.Show(this, "¿Quiere cerrar el actual stream?", "Atención", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 this.Close();
+        }
+
+        private void pIPEToolStripMenuItem_Click(object sender, EventArgs e) {
+            jSONToolStripMenuItem.Checked = false;
+
+            if (pIPEToolStripMenuItem.Checked) {
+                pIPEToolStripMenuItem.Checked = false;
+            }
+            else {
+                pIPEToolStripMenuItem.Checked = true;
+            }
+        }
+
+        private void jSONToolStripMenuItem_Click(object sender, EventArgs e) {
+            pIPEToolStripMenuItem.Checked = false;
+
+            if (jSONToolStripMenuItem.Checked) {
+                jSONToolStripMenuItem.Checked = false;
+            }
+            else {
+                jSONToolStripMenuItem.Checked = true;
+            }
         }
     }
 }

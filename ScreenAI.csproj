@@ -35,7 +35,7 @@
     <SuiteName>Proyecto Horus</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>54</ApplicationRevision>
+    <ApplicationRevision>57</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -266,6 +266,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AreaSelector.resx">
       <DependentUpon>AreaSelector.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmFeedback.resx">
       <DependentUpon>frmFeedback.cs</DependentUpon>
